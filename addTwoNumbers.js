@@ -1,15 +1,3 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
- */
 var addTwoNumbers = function(l1, l2) {
     //Convert each linked list into a single number
     //Add both numbers together
@@ -21,33 +9,37 @@ var addTwoNumbers = function(l1, l2) {
         if (!node) {
             return tempStringResult;
         }
-        tempStringResult.concat(node.val)
-        convertLinkedList(node.next, tempStringResult);
+        tempStringResult = node.val + tempStringResult;
+        return convertLinkedList(node.next, tempStringResult);
     }
     StrNum1 = convertLinkedList(l1);
     StrNum2 = convertLinkedList(l2);
-    StrNum1 = parseInt(StrNum1);
-    StrNum2 = parseInt(StrNum2);
-    
+    console.log('Before conversion:', StrNum1, StrNum2)
+    StrNum1 = BigInt(StrNum1);
+    StrNum2 = BigInt(StrNum2);
     console.log(StrNum1, StrNum2);
     
+    var totalSum = StrNum1 + StrNum2;
+    console.log('Sum:', totalSum);
+    // var head = new ListNode(totalSum % 10);
+    // var pointer = head;
+    // totalSum = Math.floor(totalSum / 10);
+    // while(totalSum) {
+    //     pointer.next = new ListNode(totalSum % 10);
+    //     pointer = pointer.next;
+    //     totalSum = Math.floor(totalSum / 10);
+    // }
+    // pointer.next = null;
+    // return head;
+    totalSum = totalSum.toString();
+    var firstNumber = Number(totalSum[totalSum.length - 1]);
+    var head = new ListNode(firstNumber)
+    var pointer = head;
+    console.log(head);
+    for (var i = totalSum.length - 2; i > -1; i--) {
+        var valueConverter = Number(totalSum[i])
+        pointer.next = new ListNode(valueConverter);
+        pointer = pointer.next;
+    }
+    return head;
 };
-
-function ListNode(val) {
-    this.val = val;
-    this.next = null;
-}
-
-
-var l1 = new ListNode(2);
-var l2 = new ListNode(5);
-var node1 = new ListNode(4);
-var node2 = new ListNode(3);
-var node3 = new ListNode(6);
-var node4 = new ListNode(4);
-l1.next = node1;
-node1.next = node2;
-
-l2.next = node3;
-node3.next = node4;
-
