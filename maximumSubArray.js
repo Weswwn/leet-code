@@ -3,58 +3,44 @@
  * @return {number}
  */
 var maxSubArray = function(nums) {
-    //Create start and end pointers with 'end' one more than start
-    //Create a largestSum tracker variable
-    //Create a subArrayResult
-    
-    //currently whiteboarding....
-    //Find largest number within array
-    //Edge Case: How to handle multiple largest same number
-    var resultArray = [];
-    var largestNumber = -Infinity;
-    var largestIndex = 0;
-    var start = 0;
-    for (var i = 0; i < nums.length; i++) {
-        if (nums[i] > largestNumber) {
-            largestNumber = nums[i];
-            largestIndex = i;
+    var largestValInNums = -Infinity;
+    var startIndex = 0;
+    var largestValIndex = 0;
+    // Find the largest value and index in the nums array
+    for (var i = 0; i< nums.length; i++) {
+        if (nums[i] > largestValInNums) {
+            largestValInNums = nums[i]
+            largestValIndex = i;
         }
     }
-
-    var firstHalfSum = 0;
-    for (var y = start; y < largestIndex; y++) {
-        if (firstHalfSum < 0) {
-            start++;
-            firstHalfSum = 0;
+    var firstHalfStartIndex = 0;
+    var firstHalfEnd = largestValIndex;
+    var largestSum = 0;
+    var findLargestFirstHalf = (start) => {
+        var tempSum = nums[start];
+        for (var i = start + 1; i < firstHalfEnd; i++) {
+            if (tempSum + nums[i] < 0) {
+                start += 1;
+                return findLargestFirstHalf(start)
+            } else {
+                tempSum += nums[i];
+            }
+        }
+        if (tempSum > largestSum) {
+            largestSum = tempSum;
+            startIndex = start;
         } else {
-            firstHalfSum += nums[y]
+            if (largestSum = 0) {
+                startIndex = largestValIndex;
+            }
         }
     }
-    if (firstHalfSum < 0) {
-        start = largestIndex;
+    for (var z = firstHalfStartIndex; z < firstHalfEnd; z++) {
+        if (nums[z] > 0) {
+            firstHalfStartIndex = z;
+            findLargestFirstHalf(firstHalfStartIndex);
+        }
     }
-    resultArray.push(start);
-
-    //Need to loop through the entire second half and check if any subarray sums are greater than 0 
-    var secondHalfSum = 0;
-    var largestNum = -Infinity;
-    var index = largestIndex;
     
-    for (var z = largestIndex + 1; z < nums.length; z++) {
-        if ((secondHalfSum += nums[z]) > largestNum) {
-            console.log(secondHalfSum);
-            largestNum = secondHalfSum;
-            index = z;
-        }
-    }
-    if (secondHalfSum > 0) {
-        resultArray.push(index);
-    }
-    var result = nums[largestIndex];
-   for (var a = resultArray[0]; a < resultArray[1] + 1; a++) {
-       result += nums[a];
-   }
-   return result;
 };
-
-console.log(maxSubArray([-2, 1]));
+console.log(maxSubArray([-2,1,-3,4,4,5,-1,2,1,-5,4]))
