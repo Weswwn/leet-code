@@ -6,9 +6,9 @@ var maxProfit = function(prices) {
     var profit = 0;
     for (var i = 0; i < prices.length; i++) {
         for (var y = i + 1; y < prices.length; y++) {
-            if (y > i) {
-                if ((y - i) > profit) {
-                    profit = y - i;
+            if (prices[y] > prices[i]) {
+                if ((prices[y] - prices[i]) > profit) {
+                    profit = prices[y] - prices[i];
                 }   
             }
         }
