@@ -10,19 +10,26 @@
  * @return {number}
  */
 var minDepth = function(root) {
-    var totalCount = Infinity;
-    
-    var recursiveCount = 1;
-    var recurse = (node, recursiveCount) => {
-        if (!node) {
+  var totalCount = Infinity;
+  
+  var recursiveCount = 0;
+    if (!root) {
+      return 0;
+    }
+  var recurse = (node, recursiveCount) => {
+      if (!node) {
+          return;
+      }
+    recursiveCount++;
+      if (node.left === null && node.right === null) {
+          if (recursiveCount < totalCount) {
+            totalCount = recursiveCount;
+            return;
+          }
             return;
         }
-        recursiveCount++;
-        recurse(node.left);
-        recurse(node.right);
-        if (recursiveCount < totalCount) {
-            totalCount = recursiveCount;
-        }
+        recurse(node.left, recursiveCount);
+        recurse(node.right, recursiveCount);
     }
     recurse(root, recursiveCount);
     return totalCount;
