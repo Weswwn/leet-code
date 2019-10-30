@@ -1,29 +1,27 @@
 var divisor = (n, k) => {
   let nString = n.toString();
-  let resultCount = 0;
-  let denomTracker = {};
-  for (let i = 0; i < nString.length; i++) {
-    if ((i + k) - 1 >= nString.length) {
-      break;
-    }
-    let tempString = '';
-    tempString += nString[i];
+  let totalCount = 0;
 
-    let count = 1;
-    let pointer = i + 1;
-    while (count < k) {
-      tempString += nString[pointer]
-      pointer++;
-      count++;
-    }
-    if (!denomTracker[tempString]) {
-      if (n % parseInt(tempString) === 0) {
-        resultCount++;
+  var recurse = (kDigit) => {
+    console.log(kDigit);
+    if (kDigit.length === k) {
+      if (n % parseInt(kDigit) === 0) {
+        console.log(kDigit);
+        totalCount++;
+        return;
+      } else {
+        return;
       }
-      denomTracker[tempString] = tempString;
+    }
+    for (let i = 0; i < nString.length; i++) {
+      if ((i + k) - 1 === nString.length && kDigit.length === 0) {
+        break;
+      }
+      recurse(kDigit + nString[i])
     }
   }
-  return resultCount;
+  recurse('');
+  return totalCount;
 }
 
 console.log(divisor(555,1));
