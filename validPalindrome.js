@@ -3,21 +3,17 @@
  * @return {boolean}
  */
 var isPalindrome = function(x) {
-    let xString = x.toString();
-    let left = 0;
-    let right = xString.length - 1;
-    let validPal = true;
-    if (xString.length === 1) {
-        return true;
+    let num = x;
+    let reversedNum = 0;
+    if (x < 0) {
+        return false;
     }
-    console.log(xString[left], xString[right]);
-    while (left < right) {
-        if (xString[left] !== xString[right]){
-            validPal = false;
-            return validPal;
-        }
-        left++;
-        right--;
+    while (num) {
+        reversedNum = (10 * reversedNum) + (num % 10)
+        num = Math.floor(num / 10);
     }
-    return validPal;
+    return (reversedNum === x);
 };
+
+
+// https://dpaste.de/369b
