@@ -1,17 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} L
+ * @param {number} R
+ * @return {number}
+ */
 var rangeSumBST = function(root, L, R) {
-    var totalSum = 0;
-    
-    if (!root) return totalSum;
-    if (root.val >= L && root.val <= R) totalSum += root.val
-    
-    var helper = (node) => {
-        if (!node) return
-        if (node.val >= L && node.val <= R) totalSum += node.val;
-        
-        helper(node.left);
-        helper(node.right);
+    let totalSum = 0;  
+    let recurse = (node) => {
+        if (!node) {
+            return;
+        }
+        if (node.val > R) {
+            recurse(node.left);
+        }
+        if (node.val >= L && node.val <= R) {
+            // console.log(node.val)
+            totalSum += node.val
+            recurse(node.left);
+            recurse(node.right);
+            // return;
+        } else if (node.val < L) {
+            recurse(node.right);
+            console.log('hi');
+        }
     }
-    helper(root);
+    recurse(root);
     return totalSum;
 };
 
@@ -37,3 +57,5 @@ leftLeaf.right = node5;
 
 // rightLeaf.left = node6; 
 rightLeaf.right = node6;
+
+console.log(rangeSumBST(root, 7, 15));
