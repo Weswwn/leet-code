@@ -19,7 +19,7 @@ var lengthOfLongestSubstring = function(s) {
         if (i + 1 === s.length) {
             return longestSubString;
         }
-        if (s[charChecker] !== s[i + 1] && !objHolder.hasOwnProperty(s[i + 1])) {
+        if (s[charChecker] !== s[i + 1] && !objHolder[s[i + 1]]) {
             objHolder[s[i+1]] = s[i+1];
             count++;
             if (count > longestSubString) {
@@ -35,5 +35,3 @@ var lengthOfLongestSubstring = function(s) {
     }
     return longestSubString;
 };
-
-console.log(lengthOfLongestSubstring("bbbbb"));
