@@ -3,27 +3,17 @@
  * @return {number[][]}
  */
 var merge = function(intervals) {
-    intervals.sort((a,b) => {
-        return a[0] - b[0];
-    })
-
-    for (let i = 0; i < intervals.length - 1; i++) {
-        if (intervals[i][1] <= intervals[i + 1][1] && intervals[i][1] >= intervals[i + 1][0]) {
-            intervals[i].join(intervals[i + 1]);
-            let start = Math.min(intervals[i][0], intervals[i + 1][0]);
-            let end = Math.max(intervals[i][1], intervals[i + 1][1]);
-            intervals.splice(i,1);
-            intervals[i][0] = start;
-            intervals[i][1] = end;
-            i--;
-        } else if (intervals[i + 1][1] <= intervals[i][1] && intervals[i + 1][0] >= intervals[i + 1][0]) {
-            intervals[i].join(intervals[i + 1]);
-            let start = Math.min(intervals[i][0], intervals[i + 1][0]);
-            let end = Math.max(intervals[i][1], intervals[i + 1][1]);
-            intervals.splice(i,1);
-            intervals[i][0] = start;
-            intervals[i][1] = end;
-            i--;
+    let count = 0;
+    intervals.sort((a, b) => a[0] - b[0])
+    while (count <= intervals.length - 2) {
+        if (intervals[count][0] <= intervals[count + 1][0] &&
+           intervals[count][1] >= intervals[count + 1][0]) {
+            intervals[count] = intervals[count].concat(intervals[count + 1]);
+            intervals.splice(count + 1, 1);
+            intervals[count] = [Math.min.apply(Math, intervals[count]), 
+                                Math.max.apply(Math, intervals[count])];
+        } else {
+            count++;
         }
     }
     return intervals;
