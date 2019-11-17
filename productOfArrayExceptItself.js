@@ -23,6 +23,7 @@ var productExceptSelf = function(nums) {
             rightMultipleValue *= nums[z + 1];
             rightMultipleArray.push(rightMultipleValue);
         }
+        console.log(rightMultipleArray);
     }
     var length = rightMultipleArray.length - 1;
     for (var y = 0; y < rightMultipleArray.length; y++) {

@@ -19,20 +19,18 @@
 */
 
 var rockPaperScissors = function (n) {
-  // TODO: your solution here
-  let resultArray = [];
-  var options = ['R','P','S'];
-  var playRound = (hands) => {
-    if (hands.length === n) {
-      resultArray.push(hands);
-      return;
-    }
-    for (var i = 0; i < options.length; i++) {
-      playRound(hands + options[i]);
-    }
-  }
-  playRound('');
-  return resultArray;
+   let hand = ['R','P','S'];
+   let resultArray = [];
+   let recurse = (permutation) => {
+     if (permutation.length === n) {
+       resultArray.push(permutation);
+       return;
+     }
+     
+     hand.forEach(play => recurse(permutation + play))
+   }
+   recurse('')
+   return resultArray;
 };
 
-console.log(rockPaperScissors(3));
+console.log(rockPaperScissors(4));

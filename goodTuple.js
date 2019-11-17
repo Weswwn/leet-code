@@ -29,4 +29,4 @@ var goodTuple = (arr) => {
     return tupleCount;
 }
 
-console.log(goodTuple([111,111,222,111]));
+console.log(goodTuple([111, 111, 3, 56, 800, 56, 1, 2, 5]));

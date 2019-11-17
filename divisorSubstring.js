@@ -1,27 +1,24 @@
 var divisor = (n, k) => {
   let nString = n.toString();
   let totalCount = 0;
-
-  var recurse = (kDigit) => {
-    console.log(kDigit);
-    if (kDigit.length === k) {
-      if (n % parseInt(kDigit) === 0) {
-        console.log(kDigit);
+  let recurse = (permutation, index) => {
+    console.log(permutation);
+    if (permutation.length === k) {
+      if (n % Number(permutation) === 0) {
         totalCount++;
         return;
-      } else {
-        return;
       }
+      return;
     }
     for (let i = 0; i < nString.length; i++) {
-      if ((i + k) - 1 === nString.length && kDigit.length === 0) {
+      if ((i + k) + 1 === nString.length && nString.length === 0) {
         break;
       }
-      recurse(kDigit + nString[i])
+      recurse(permutation + nString[i])
     }
   }
-  recurse('');
+  recurse('', 0);
   return totalCount;
 }
 
-console.log(divisor(555,1));
+console.log('Total Count:', divisor(2345 , 2));

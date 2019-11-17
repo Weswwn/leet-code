@@ -13,10 +13,6 @@ var maxSubArray = function(nums) {
         } else {  
             subArraySum += nums[i];
             maxArraySum = Math.max(subArraySum, maxArraySum);
-
-            // if (subArraySum > maxArraySum) {
-            //     maxArraySum = subArraySum;
-            // }
         } 
     }
     return maxArraySum;
