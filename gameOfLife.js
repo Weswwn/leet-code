@@ -26,6 +26,7 @@ var gameOfLife = function(board) {
     let current = queueOfDead.shift();
     gridMutate(board, current, false, 1, 'stillAlive', 3,3)
   }
+    console.log(board);
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       if (board[i][j] === 'stillAlive') {
@@ -74,14 +75,14 @@ let gridMutate = (board, coordinate, alive, valueToCheck, prevValue, min, max) =
      board[i+1][j-1] === prevValue)) {
       total++;
   }
+  // Check left
+  if (j - 1 >= 0 && (board[i][j - 1] === valueToCheck ||
+     board[i][j-1] === prevValue)) {
+      total++;
+  }
   // Check top left corner
   if (i - 1 >= 0 && j - 1 >= 0 && (board[i - 1][j - 1] === valueToCheck ||
      board[i-1][j-1] === prevValue)) {
-      total++;
-  }
-  // Check left
-  if (j - 1 >= 0 && (board[i][j - 1] === valueToCheck ||
-     board[i][j+1] === prevValue)) {
       total++;
   }
   if (alive) {
@@ -98,9 +99,3 @@ let gridMutate = (board, coordinate, alive, valueToCheck, prevValue, min, max) =
       }
   }
 }
-  
-console.log(gameOfLife([[0,1,0],
-  [0,0,1],
-  [1,1,1],
-  [0,0,0]]));
-  
