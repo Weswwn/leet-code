@@ -4,38 +4,46 @@
  * @return {string}
  */
 var minWindow = function(s, t) {
-  let L = 0;
-  let R = 0;
-  let count = 0;
-  let obj = {};
-  let result = '';
-  let minLength = Infinity;
-  t.split('').forEach(char => obj[char] = (obj[char] || 0) + 1);
-  
-  while (R < s.length) {
-      if (obj[s[R]] || obj[s[R]] === 0) {
-          obj[s[R]]--;
-          if (obj[s[R]] === 0) {
-              count++;
-          }
-      }
-      R++;
-      
-      while (count === Object.keys(obj).length) {
-          if (R - L < minLength) {
-              minLength = R - L;
-              result = s.substring(L, R);
-          }
-          
-          if (obj[s[L]] || obj[s[L]] === 0) {
-              obj[s[L]]++;
-              if (obj[s[L]] > 0) {
-                  count--;
-              }
-          }
-          L++;
-      }
-  }
-  return result;
+    let obj = {};
+    let result = Number.MAX_SAFE_INTEGER;
+    let p1 = 0;
+    let p2 = 0;
+    for (let i = 0; i < t.length; i++) {
+        if (!obj[t[i]]) {
+            obj[t[i]] = 1;
+        } else {
+            obj[t[i]]++;
+        }
+    }
+    let count = Object.keys(obj).length;
+    let index = [];
+    while (p2 < s.length) {
+        if (obj.hasOwnProperty(s[p2])) {
+            obj[s[p2]]--;
+        }
+        if (obj[s[p2]] === 0) {
+            count--;
+        }
+        if (count === 0) {
+            while (count === 0) {
+                if ((p2 - p1 + 1) < result) {
+                    result = p2 - p1 + 1;
+                    index = [p1, p2];
+                }
+                if (obj.hasOwnProperty(s[p1])) {
+                    obj[s[p1]]++;
+                }
+                if (obj[s[p1]] > 0) {
+                    count++;
+                }
+                p1++;
+            }
+        }
+        p2++;
+    }
+    let string = '';
+    for (let i = index[0]; i <= index[1]; i++) {
+        string += s[i];
+    }
+    return string;
 };
-console.log(minWindow('bbaa', 'aba'))
