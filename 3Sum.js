@@ -3,38 +3,30 @@
  * @return {number[][]}
  */
 var threeSum = function(nums) {
-    nums.sort((a,b) => {
-        return a - b;
-    })
-    var obj = {};
-    var resultArray = [];
-    
-    for (let i = 0; i < nums.length; i++) {
-        let L = i + 1;
-        let R = nums.length - 1;
-        
-        if (i > 0 && nums[i] == nums[i - 1]) {
-			continue;
-		}
-        
-        while(L < R) {
-            if (nums[i] + nums[L] + nums[R] === 0) {
-                var temp = [nums[i] , nums[L], nums[R]];
-                temp.sort();
-                if (!obj[temp]) {
-                    obj[temp] = temp;
-                    resultArray.push(temp);
+    nums = nums.sort((a,b) => a - b);
+    let result = [];
+    for (let i = 0; i < nums.length - 1; i++) {
+        let p1 = i;
+        let p2 = i + 1;
+        let p3 = nums.length - 1;
+        if (nums[i] === nums[ i - 1]) {
+            continue;
+        }
+        while (p2 < p3) {
+            if (nums[p1] + nums[p2] + nums[p3] === 0) {
+                result.push([nums[p1], nums[p2], nums[p3]]);
+                p2++;
+                p3--;
+                while (nums[p2] === nums[p2 - 1] && nums[p3] === nums[p3 + 1]) {
+                    p2++;
+                    p3--;
                 }
-                L++;
-                R--;
-            }
-            if (nums[i] + nums[L] + nums[R] > 0) {
-                R--;
-            }
-            if (nums[i] + nums[L] + nums[R] < 0) {
-                L++;
+            } else if (nums[p1] + nums[p2] + nums[p3] < 0) {
+                p2++;
+            } else if (nums[p1] + nums[p2] + nums[p3] > 0) {
+                p3--;
             }
         }
     }
-    return resultArray;
-}; 
+    return result;
+};
