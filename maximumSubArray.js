@@ -3,19 +3,21 @@
  * @return {number}
  */
 var maxSubArray = function(nums) {
-    var maxArraySum = nums[0];
-    var subArraySum = nums[0];
-    
-    for (var i = 1; i < nums.length; i++) {
-        if (subArraySum + nums[i] < nums[i]) {
-            subArraySum = nums[i];
-            maxArraySum = Math.max(subArraySum, maxArraySum);
-        } else {  
-            subArraySum += nums[i];
-            maxArraySum = Math.max(subArraySum, maxArraySum);
-        } 
+    let p1 = 0;
+    let p2 = 0;
+    let max = -Infinity;
+    if (!nums) return 0;
+    let curr = 0
+    if (nums.length === 1) return nums[0];
+    while (p2 < nums.length) {
+        if (curr + nums[p2] < nums[p2]) {
+            p1 = p2;
+            curr = 0;
+        } else {
+            curr += nums[p2];
+            max = Math.max(max, curr);
+            p2++;
+        }
     }
-    return maxArraySum;
+    return max;
 };
-
-console.log(maxSubArray([-1,-2]));
